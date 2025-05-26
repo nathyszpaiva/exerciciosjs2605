@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<title>Exercícios JS</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<h1>Exercícios JS</h1>
+
+<h2>Funções</h2>
+<button onclick="calcularMedia()">1 - Média de 4 notas</button><br><br>
+<button onclick="quadradoNumeros()">2 - Quadrado de 5 números</button><br><br>
+<button onclick="maiorNumero()">3 - Maior entre 5 números</button><br><br>
+<button onclick="contarIdades()">4 - Contar maiores e menores de idade (6 idades)</button><br><br>
+
+<h2>Arrays e Objetos</h2>
+<button onclick="carroPagamento()">5 - Objeto Carro e forma de pagamento</button><br><br>
+<button onclick="buscarProduto()">6 - Buscar produto na array</button><br><br>
+<button onclick="validarSenha8()">7 - Validar senha (8 caracteres)</button><br><br>
+<button onclick="mostrarSemanaMes()">8 - Mostrar dia da semana e mês atual (texto)</button><br><br>
+<button onclick="mostrarDataHora()">9 - Mostrar data e hora atual</button><br><br>
+<button onclick="validarSenha12()">10 - Validar senha (mínimo 12 caracteres)</button><br><br>
+<button onclick="saudacaoPorHora()">11 - Saudação por hora</button><br><br>
+
+<script>
+
+function mostrar(msg) {
+  console.log(msg);
+  alert(msg);
+}
+
+// FUNÇÕES
+
+// MÉDIA
+
+function calcularMedia() {
+  let soma = 0;
+  for (let i = 1; i <= 4; i++) {
+    let nota = parseFloat(prompt(`Digite a nota ${i}:`));
+    soma += nota;
+  }
+  let media = soma / 4;
+  console.clear();
+  mostrar(`Média das 4 notas: ${media.toFixed(2)}`);
+}
+
+// QUADRADO
+
+function quadradoNumeros() {
+  console.clear();
+  let resultados = "";
+  for (let i = 1; i <= 5; i++) {
+    let num = Number(prompt(`Digite o número ${i}:`));
+    resultados += `Número ${num} ao quadrado é ${num ** 2}\n`;
+  }
+  mostrar(resultados.trim());
+}
+
+// MAIOR NUMERO
+
+function maiorNumero() {
+  let maior = -Infinity;
+  console.clear();
+  for (let i = 1; i <= 5; i++) {
+    let num = Number(prompt(`Digite o número ${i}:`));
+    if (num > maior) maior = num;
+  }
+  mostrar(`O maior número digitado é: ${maior}`);
+}
+
+// CONTAR IDADE
+
+function contarIdades() {
+  let maior = 0;
+  let menor = 0;
+  console.clear();
+  for (let i = 1; i <= 6; i++) {
+    let idade = Number(prompt(`Digite a idade ${i}:`));
+    if (idade >= 18) maior++;
+    else menor++;
+  }
+  mostrar(`Pessoas maiores de idade: ${maior}\nPessoas menores de idade: ${menor}`);
+}
+
+// ARRAYS
+
+//CARROS
+
+function carroPagamento() {
+  let carro = {
+    cor: "vermelho",
+    modelo: "Sedan",
+    ano: 2023,
+    preco: 50000,
+    formaPagamento: ""
+  };
+
+  let forma = prompt("Informe a forma de pagamento (avista / parcelado):").toLowerCase();
+  carro.formaPagamento = forma;
+
+  console.clear();
+  let msg = `Carro: ${carro.modelo} - Cor: ${carro.cor} - Ano: ${carro.ano}\nPreço original: R$ ${carro.preco.toFixed(2)}\n`;
+
+  if (forma === "avista") {
+    let desconto = carro.preco * 0.10;
+    let precoFinal = carro.preco - desconto;
+    msg += `Pagamento à vista: desconto de 10% aplicado.\nPreço final: R$ ${precoFinal.toFixed(2)}`;
+  } else {
+    msg += "Pagamento parcelado: não tem desconto.";
+  }
+
+  mostrar(msg);
+}
+
+// PRODUTOS
+
+function buscarProduto() {
+  const produtos = [
+    "notebook", "mouse", "teclado", "monitor", "cadeira",
+    "mesa", "cabo hdmi", "pen drive", "webcam", "impressora"
+  ];
+
+  let busca = prompt("Digite o nome do produto:").toLowerCase();
+  console.clear();
+
+  let encontrado = produtos.find(prod => prod.toLowerCase() === busca);
+
+  if (encontrado) {
+    mostrar(`Produto encontrado: ${encontrado}`);
+  } else {
+    mostrar("Produto não encontrado.");
+  }
+}
+
+// SENHA 8 CARACTERES
+
+function validarSenha8() {
+  let senha;
+  console.clear();
+  do {
+    senha = prompt("Digite uma senha com exatamente 8 caracteres:");
+  } while (senha.length !== 8);
+  mostrar("Liberada a entrada.");
+}
+
+// DATA TEXTO
+
+function mostrarSemanaMes() {
+  let data = new Date();
+
+  const diasSemana = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+  const mesesAno = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
+
+  console.clear();
+  mostrar(`Hoje é: ${diasSemana[data.getDay()]}, ${data.getDate()} de ${mesesAno[data.getMonth()]} de ${data.getFullYear()}\nNúmero do dia da semana: ${data.getDay()}\nNúmero do mês: ${data.getMonth() + 1}`);
+}
+
+// DATA HORA
+
+function mostrarDataHora() {
+  let data = new Date();
+
+  console.clear();
+  mostrar(`Data atual: ${data.toLocaleDateString()}\nHora atual: ${data.getHours()}h ${data.getMinutes()}m ${data.getSeconds()}s`);
+}
+
+// SENHA 12 CARACTERES
+
+function validarSenha12() {
+  console.clear();
+  let senha = prompt("Digite a senha (mínimo 12 caracteres):");
+  if (senha.length < 12) {
+    mostrar("Senha inválida");
+  } else {
+    mostrar("Seja bem vindo ao SENAI");
+  }
+}
+
+// BOA
+
+function saudacaoPorHora() {
+  let hora = new Date().getHours();
+  console.clear();
+
+  if (hora >= 0 && hora < 5) {
+    mostrar("BOA MADRUGADA");
+  } else if (hora < 12) {
+    mostrar("BOM DIA");
+  } else if (hora < 18) {
+    mostrar("BOA TARDE");
+  } else {
+    mostrar("BOA NOITE");
+  }
+}
+</script>
+
+</body>
+</html>
